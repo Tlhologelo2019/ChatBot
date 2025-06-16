@@ -18,7 +18,7 @@ QuickChatBot is a Java-based messaging application that simulates SMS functional
 ### Message Management
 - Search messages by Hash ID
 - Find the longest sent message (character count)
-- 🗑Delete messages (moves to disregarded archive)
+- Delete messages (moves to disregarded archive)
 - Generate comprehensive message reports
 
 ### Data Organization
