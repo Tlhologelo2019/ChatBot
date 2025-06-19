@@ -110,6 +110,68 @@ public class Message {
         return newId;
     }
 
+    private void sendStoredMessages(){
+        if (storedMessages.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No stored messages available.");
+            return;
+        }
+
+        String[] storedArray = storedMessages.toArray(new String[0]);
+        String selectedMessage = (String) JOptionPane.showInputDialog(
+                null,
+                "Select a stored message to send:",
+                "Send Stored Message",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                storedArray,
+                storedArray[0]
+        );
+        if (selectedMessage == null) {
+            return;
+        }
+
+        int messageIndex = storedMessages.indexOf(selectedMessage);
+        if (messageIndex == -1) {
+            JOptionPane.showMessageDialog(null, "Error locating selected message.");
+            return;
+        }
+
+        String sender = JOptionPane.showInputDialog(null, "Enter sender name");
+        if (sender == null || sender.trim().isEmpty()) {
+            return;
+        }
+
+        String recipientCell;
+        do {
+            recipientCell = JOptionPane.showInputDialog(null, "Enter recipient cell number (+27 format):");
+            if (recipientCell == null) {
+                return;
+            }
+
+            String cleanedNumber = recipientCell.replaceAll("\\s+", "");
+            if (!cleanedNumber.matches("^\\+27[0-9]{9}$")) {
+                JOptionPane.showMessageDialog(null,
+                        "Invalid cell number format. Must be in +27XXXXXXXXX format (11 digits total)",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } while (!recipientCell.replaceAll("\\s+", "").matches("^\\+27[0-9]{9}$"));
+
+        String id = generateMessageId();
+        int messageNumber = sentMessages.size() + 1;
+        String hash = generateHashId(id, messageNumber);
+
+        sentMessages.add(selectedMessage);
+        storedMessages.remove(messageIndex);
+        senders.add(sender);
+        recipientscellPhone.add(recipientCell);
+        messageId.add(id);
+        messageHash.add(hash);
+
+        JOptionPane.showMessageDialog(null,
+                "Stored message sent successfully!\nMessage ID: " + id
+                        + "\nHash ID: " + hash);
+    }
+
     private String generateHashId(String messageId, int messageNumber) {
         return messageId.substring(0, 2) + ":" + messageNumber;
     }
@@ -142,15 +204,16 @@ public class Message {
                                                               ==== Message Management ====
                                                               1. Show disregarded messages
                                                               2. Show all stored messages
-                                                              3. Delete a message by Hash ID
-                                                              4. Display full report
-                                                              5. Search for a message
-                                                              6. Display the longest message
-                                                              7. Back to main menu
+                                                              3. Send stored messages
+                                                              4. Delete a message by Hash ID
+                                                              5. Display full report
+                                                              6. Search for a message
+                                                              7. Display the longest message
+                                                              8. Back to main menu
                                                               Choose an option:""");
 
             if (option == null) {
-                option = "5";
+                option = "8";
             }
 
             switch (option) {
@@ -159,14 +222,16 @@ public class Message {
                 case "2" ->
                         showAllStoredMessages();
                 case "3" ->
-                        deleteMessageByHash();
+                        sendStoredMessages();
                 case "4" ->
-                        displayFullReport();
+                        deleteMessageByHash();
                 case "5" ->
-                        searchMessageByHashId();
+                        displayFullReport();
                 case "6" ->
+                        searchMessageByHashId();
+                case "7" ->
                         findLongestMessage();
-                case "7" -> {
+                case "8" -> {
                     return;
                 }
                 default ->
