@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Main {
 
-    private static ArrayList<String> firstNames = new ArrayList<>();
-    private static ArrayList<String> lastNames = new ArrayList<>();
-    private static ArrayList<String> userNames = new ArrayList<>();
-    private static ArrayList<String> passwords = new ArrayList<>();
-    private static ArrayList<String> cellNumbers = new ArrayList<>();
+    private static final ArrayList<String> firstNames = new ArrayList<>();
+    private static final ArrayList<String> lastNames = new ArrayList<>();
+    private static final ArrayList<String> userNames = new ArrayList<>();
+    private static final ArrayList<String> passwords = new ArrayList<>();
+    private static final ArrayList<String> cellNumbers = new ArrayList<>();
 
     public static void main(String[] args) {
         Login loginSystem = new Login();

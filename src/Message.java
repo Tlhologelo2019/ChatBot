@@ -3,14 +3,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Message {
-    private ArrayList<String> sentMessages = new ArrayList<>();
-    private ArrayList<String> disregardedMessages = new ArrayList<>();
-    private ArrayList<String> storedMessages = new ArrayList<>();
-    private ArrayList<String> messageHash = new ArrayList<>();
-    private ArrayList<String> messageId = new ArrayList<>();
-    private ArrayList<String> senders = new ArrayList<>();
-    private ArrayList<String> recipientscellPhone = new ArrayList<>();
-    private Random random = new Random();
+    private final ArrayList<String> sentMessages = new ArrayList<>();
+    private final ArrayList<String> disregardedMessages = new ArrayList<>();
+    private final ArrayList<String> storedMessages = new ArrayList<>();
+    private final ArrayList<String> messageHash = new ArrayList<>();
+    private final ArrayList<String> messageId = new ArrayList<>();
+    private final ArrayList<String> senders = new ArrayList<>();
+    private final ArrayList<String> recipientscellPhone = new ArrayList<>();
+    private final Random random = new Random();
 
     public void sendMessagesInteraction() {
         String sender = JOptionPane.showInputDialog(null, "Enter sender name:");
@@ -257,15 +257,14 @@ public class Message {
             return;
         }
 
-        StringBuilder sb = new StringBuilder("=== MESSAGE DETAILS ===\n");
-        sb.append("Hash ID: ").append(messageHash.get(index)).append("\n");
-        sb.append("Message ID: ").append(messageId.get(index)).append("\n");
-        sb.append("From: ").append(senders.get(index)).append("\n");
-        sb.append("To: ").append(recipientscellPhone.get(index)).append("\n");
-        sb.append("Content: ").append(sentMessages.get(index)).append("\n");
-        sb.append("Length: ").append(sentMessages.get(index).length()).append("Characters long\n");
+        String sb = "=== MESSAGE DETAILS ===\n" + "Hash ID: " + messageHash.get(index) + "\n" +
+                "Message ID: " + messageId.get(index) + "\n" +
+                "From: " + senders.get(index) + "\n" +
+                "To: " + recipientscellPhone.get(index) + "\n" +
+                "Content: " + sentMessages.get(index) + "\n" +
+                "Length: " + sentMessages.get(index).length() + "Characters long\n";
 
-        JOptionPane.showMessageDialog(null, sb.toString());
+        JOptionPane.showMessageDialog(null, sb);
     }
 
     private void showDisregardedMessages() {
@@ -311,17 +310,14 @@ public class Message {
             }
         }
 
-        if (index != -1) {
-            StringBuilder sb = new StringBuilder("=== LONGEST MESSAGE ===\n");
-            sb.append("Length: ").append(maxLength).append(" characters long\n");
-            sb.append("Hash ID: ").append(messageHash.get(index)).append("\n");
-            sb.append("Message ID: ").append(messageId.get(index)).append("\n");
-            sb.append("From: ").append(senders.get(index)).append("\n");
-            sb.append("To: ").append(recipientscellPhone.get(index)).append("\n");
-            sb.append("Message: ").append(sentMessages.get(index)).append("\n");
+        String sb = "=== LONGEST MESSAGE ===\n" + "Length: " + maxLength + " characters long\n" +
+                "Hash ID: " + messageHash.get(index) + "\n" +
+                "Message ID: " + messageId.get(index) + "\n" +
+                "From: " + senders.get(index) + "\n" +
+                "To: " + recipientscellPhone.get(index) + "\n" +
+                "Message: " + sentMessages.get(index) + "\n";
 
-            JOptionPane.showMessageDialog(null, sb.toString());
-        }
+        JOptionPane.showMessageDialog(null, sb);
     }
 
     private void deleteMessageByHash() {
